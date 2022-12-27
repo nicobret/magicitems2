@@ -15,7 +15,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        return Item::all();
     }
 
     /**
@@ -26,7 +26,7 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        //
+        return Item::create($request->validated());
     }
 
     /**
@@ -37,7 +37,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return $item;
     }
 
     /**
@@ -49,7 +49,7 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
-        //
+        return tap($item)->update($request->validated());
     }
 
     /**
@@ -60,6 +60,6 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        return tap($item)->delete();
     }
 }

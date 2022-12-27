@@ -16,12 +16,11 @@ const ItemButtonComponent: FC<ItemButtonProps> = ({
     <li
       key={item.index}
       className={`${
-        selected && "font-bold"
-      } m-2 cursor-pointer truncate rounded border-2 ${
-        selected ? "border-orange-500" : "border-orange-50"
-      } bg-orange-50 p-2 text-orange-500 hover:border-orange-500 hover:bg-orange-500 hover:text-orange-50`}
+        selected && "font-bold ml-4"
+      } m-2 cursor-pointer truncate text-emerald-50 italic hover:ml-4 transition-all duration-300 ease-in-out`}
       onClick={() => handleClick(item)}
     >
+      {/* {selected && " ◊ "} */}
       {item.name}
     </li>
   );

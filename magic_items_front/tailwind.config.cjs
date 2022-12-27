@@ -3,8 +3,9 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
-      sans: ["Inter", "sans-serif"],
-      serif: ['"Indie Flower"', "serif"],
+      sans: ["Verdana", "sans-serif"],
+      serif: ['"Crimson Text"', "serif"],
+      title: ['"Berkshire Swash"', "cursive"],
     },
     extend: {},
   },

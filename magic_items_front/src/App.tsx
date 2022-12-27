@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import FiltersComponent from "./components/Filters";
+import Header from "./components/Header";
 import ItemDetailComponent from "./components/ItemDetail";
 import ItemListComponent from "./components/ItemList";
 import { ItemDetailType, ItemListType } from "./types/itemTypes";
@@ -6,9 +8,12 @@ import { fetchItemList } from "./utils";
 
 function App() {
   const [itemList, setItemList] = useState<ItemListType>([]);
-  console.log("🚀 ~ file: App.tsx:9 ~ App ~ itemList", itemList);
   const [itemDetail, setItemDetail] = useState<ItemDetailType>();
-  console.log("🚀 ~ file: App.tsx:11 ~ App ~ itemDetail", itemDetail);
+  const [query, setQuery] = useState<string>("");
+  const [rarityFilter, setRarityFilter] = useState<string>("");
+  const filteredItemList = itemList.filter((item) =>
+    item.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   useEffect(() => {
     if (itemList.length) return;
@@ -16,25 +21,33 @@ function App() {
   }, []);
 
   return (
-    <main className="my-4 mx-auto w-[1200px] rounded-xl bg-orange-100 p-4">
-      <h1 className="">Magic items</h1>
-      <div className="flex w-full">
-        {itemList.length ? (
-          <ItemListComponent
+    <div className="mx-32">
+      <Header />
+      <main className="bg-emerald-900 bg-opacity-30 p-3 rounded-xl flex gap-3">
+          <div className="w-48">
+            <FiltersComponent query={query} setQuery={setQuery} rarityFilter={rarityFilter} setRarityFilter={setRarityFilter} />
+          </div>
+          <div className="w-48">
+          {itemList.length ? (
+            <ItemListComponent
             itemList={itemList}
             selectedItem={itemDetail?.name}
             setItemDetail={setItemDetail}
-          />
-        ) : (
-          <p>Chargement</p>
-        )}
-        {itemDetail ? (
-          <ItemDetailComponent itemDetail={itemDetail} />
-        ) : (
-          <p>Sélectionnez un objet dans la liste.</p>
-        )}
-      </div>
-    </main>
+            query={query}
+            />
+            ) : (
+              <p>Chargement</p>
+              )}
+          </div>
+          <div className="">
+          {itemDetail ? (
+            <ItemDetailComponent itemDetail={itemDetail} />
+            ) : (
+              <p>Sélectionnez un objet dans la liste.</p>
+              )}
+          </div>
+      </main>
+    </div>
   );
 }
 
