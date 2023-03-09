@@ -27,11 +27,12 @@ const ItemListComponent: FC<ItemListProps> = ({
   }) => {
     if (item.name === selectedItem) return setItemDetail(undefined);
     const res = await fetchItemDetail(item.url);
+    console.log("🚀 ~ file: ItemList.tsx:30 ~ res:", res)
     return setItemDetail(res);
   };
 
   return (
-    <ul className="h-full overflow-auto bg-white bg-opacity-10 rounded-xl p-4">
+    <ul className="h-full overflow-auto rounded-xl bg-gradient-to-br from-emerald-900 p-4">
       {itemList.length ? (
         filteredItemList.map((item) => (
           <ItemButtonComponent

@@ -14,6 +14,7 @@ function App() {
   const filteredItemList = itemList.filter((item) =>
     item.name.toLowerCase().includes(query.toLowerCase())
   );
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (itemList.length) return;
@@ -21,31 +22,34 @@ function App() {
   }, []);
 
   return (
-    <div className="mx-32">
+    <div className="mx-auto w-[1000px]">
       <Header />
-      <main className="bg-emerald-900 bg-opacity-30 p-3 rounded-xl flex gap-3">
-          <div className="w-48">
-            <FiltersComponent query={query} setQuery={setQuery} rarityFilter={rarityFilter} setRarityFilter={setRarityFilter} />
-          </div>
-          <div className="w-48">
+      <main className="space-y-4 rounded-xl bg-opacity-30 bg-gradient-to-br from-emerald-900 p-4">
+        <FiltersComponent
+          query={query}
+          setQuery={setQuery}
+          rarityFilter={rarityFilter}
+          setRarityFilter={setRarityFilter}
+        />
+        <div className="grid grid-cols-4 gap-4">
           {itemList.length ? (
             <ItemListComponent
-            itemList={itemList}
-            selectedItem={itemDetail?.name}
-            setItemDetail={setItemDetail}
-            query={query}
+              itemList={itemList}
+              selectedItem={itemDetail?.name}
+              setItemDetail={setItemDetail}
+              query={query}
             />
-            ) : (
-              <p>Chargement</p>
-              )}
-          </div>
-          <div className="">
-          {itemDetail ? (
-            <ItemDetailComponent itemDetail={itemDetail} />
+          ) : (
+            <p className="animate-pulse">Chargement</p>
+          )}
+          <div className="col-span-3">
+            {itemDetail ? (
+              <ItemDetailComponent itemDetail={itemDetail} />
             ) : (
               <p>Sélectionnez un objet dans la liste.</p>
-              )}
+            )}
           </div>
+        </div>
       </main>
     </div>
   );
